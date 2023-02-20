@@ -1,8 +1,8 @@
+// ignore_for_file: must_be_immutable, camel_case_types, non_constant_identifier_names, must_call_super, file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,12 +27,9 @@ class List_of_trips extends StatefulWidget {
 }
 
 class _List_of_tripsState extends State<List_of_trips> {
-  @override
   late Stream<QuerySnapshot> _stream;
-  Status_Service _statusService = Status_Service();
-  Favs_Service _favs_service = Favs_Service();
-  Icon _myicon = Icon(FontAwesomeIcons.bookmark);
-  Icon _meyicon2 = Icon(FontAwesomeIcons.solidBookmark);
+  final Status_Service _statusService = Status_Service();
+  final Favs_Service _favs_service = Favs_Service();
 
   late List contList = List<String>.generate(1000, (counter) => "unsaved");
   @override
@@ -46,22 +43,21 @@ class _List_of_tripsState extends State<List_of_trips> {
     super.didChangeDependencies();
   }
 
-  @override
-  @override
   final currentuser = FirebaseAuth.instance;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.blue),
+        iconTheme: const IconThemeData(color: Colors.blue),
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          physics: ScrollPhysics(),
+          physics: const ScrollPhysics(),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 65,
               ),
               StreamBuilder<QuerySnapshot>(
@@ -71,7 +67,7 @@ class _List_of_tripsState extends State<List_of_trips> {
                       (context, AsyncSnapshot<QuerySnapshot> asyncSnapshot) {
                     if (asyncSnapshot.connectionState ==
                         ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
                     if (!asyncSnapshot.hasData ||
                         asyncSnapshot.data!.docs.isEmpty) {
@@ -88,10 +84,10 @@ class _List_of_tripsState extends State<List_of_trips> {
                                   fontWeight: FontWeight.bold, fontSize: 20),
                               subtitleTextStyle: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.bold, fontSize: 15),
-                              subtitle: Text(
+                              subtitle: const Text(
                                   "Lütfen Tarih veya Lokasyon bilgilerini değiştirip tekrar deneyin"),
-                              textColor: Color(0xFF3DA5D9),
-                              title: Text(
+                              textColor: const Color(0xFF3DA5D9),
+                              title: const Text(
                                   "Girdiğiniz bilgilere ait yolculuk bulamadık"),
                             ),
                           )
@@ -99,7 +95,7 @@ class _List_of_tripsState extends State<List_of_trips> {
                       );
                     }
                     if (asyncSnapshot.hasError) {
-                      return Text("eror");
+                      return const Text("eror");
                     }
 
                     if (asyncSnapshot.hasData) {
@@ -108,7 +104,7 @@ class _List_of_tripsState extends State<List_of_trips> {
                           width: 100000000,
                           child: ListView.builder(
                             scrollDirection: Axis.vertical,
-                            physics: ScrollPhysics(),
+                            physics: const ScrollPhysics(),
                             itemCount: asyncSnapshot.data!.size,
                             itemBuilder: (
                               context,
@@ -125,11 +121,11 @@ class _List_of_tripsState extends State<List_of_trips> {
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         border: Border.all(
-                                            color: Color(0xFF3DA5D9),
+                                            color: const Color(0xFF3DA5D9),
                                             width: 2)),
                                     child: Column(
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 8,
                                         ),
                                         ListTile(
@@ -149,7 +145,7 @@ class _List_of_tripsState extends State<List_of_trips> {
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 10,
                                               ),
                                               Text(
@@ -161,7 +157,7 @@ class _List_of_tripsState extends State<List_of_trips> {
                                               ),
                                             ],
                                           ),
-                                          trailing: Icon(
+                                          trailing: const Icon(
                                             FontAwesomeIcons.message,
                                             color: Colors.blue,
                                           ),
@@ -206,11 +202,12 @@ class _List_of_tripsState extends State<List_of_trips> {
                                                       );
                                                     });
                                               },
-                                              icon: Icon(Icons.info_outline)),
-                                          subtitle: Text("Başlangıç"),
+                                              icon: const Icon(
+                                                  Icons.info_outline)),
+                                          subtitle: const Text("Başlangıç"),
                                           iconColor: Colors.blue,
-                                          leading: Icon(
-                                              FontAwesomeIcons.locationArrow),
+                                          leading:
+                                              const Icon(Icons.gps_not_fixed),
                                           title: Text(
                                             mypost["nerden"],
                                             style: GoogleFonts.montserrat(
@@ -219,10 +216,9 @@ class _List_of_tripsState extends State<List_of_trips> {
                                           ),
                                         ),
                                         ListTile(
-                                          subtitle: Text("Bitiş"),
+                                          subtitle: const Text("Bitiş"),
                                           iconColor: Colors.blue,
-                                          leading: Icon(
-                                              FontAwesomeIcons.locationArrow),
+                                          leading: const Icon(Icons.place),
                                           title: Text(
                                             mypost["nereye"],
                                             style: GoogleFonts.montserrat(
@@ -231,9 +227,9 @@ class _List_of_tripsState extends State<List_of_trips> {
                                           ),
                                         ),
                                         ListTile(
-                                          subtitle: Text("Ücret"),
+                                          subtitle: const Text("Ücret"),
                                           iconColor: Colors.blue,
-                                          leading: Icon(
+                                          leading: const Icon(
                                               FontAwesomeIcons.turkishLiraSign),
                                           title: Text(
                                             mypost["price"],
@@ -243,10 +239,10 @@ class _List_of_tripsState extends State<List_of_trips> {
                                           ),
                                         ),
                                         ListTile(
-                                          subtitle: Text("Tarih"),
+                                          subtitle: const Text("Tarih"),
                                           iconColor: Colors.blue,
-                                          leading:
-                                              Icon(Icons.date_range_outlined),
+                                          leading: const Icon(
+                                              Icons.date_range_outlined),
                                           title: Text(
                                             mypost["date"],
                                             style: GoogleFonts.montserrat(
@@ -255,9 +251,10 @@ class _List_of_tripsState extends State<List_of_trips> {
                                           ),
                                         ),
                                         ListTile(
-                                          subtitle: Text("Saat"),
+                                          subtitle: const Text("Saat"),
                                           iconColor: Colors.blue,
-                                          leading: Icon(FontAwesomeIcons.clock),
+                                          leading: const Icon(
+                                              FontAwesomeIcons.clock),
                                           title: Text(
                                             mypost["time"],
                                             style: GoogleFonts.montserrat(
@@ -297,10 +294,7 @@ class _List_of_tripsState extends State<List_of_trips> {
                                                       setState(() {
                                                         contList[index] =
                                                             "saved";
-                                                        print(contList[index]);
                                                       });
-
-                                                      print("Eklendi");
                                                     }
                                                   : () async {
                                                       await _favs_service
@@ -318,11 +312,9 @@ class _List_of_tripsState extends State<List_of_trips> {
                                                               SnackPosition.TOP,
                                                           colorText:
                                                               Colors.blue);
-                                                      print("Silindi");
                                                       setState(() {
                                                         contList[index] =
                                                             "unsaved";
-                                                        print(contList[index]);
                                                       });
                                                     },
                                               icon: Icon((contList[index] ==
@@ -337,7 +329,7 @@ class _List_of_tripsState extends State<List_of_trips> {
                             },
                           ));
                     } else {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
                   }),
             ],

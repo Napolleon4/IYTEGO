@@ -1,22 +1,18 @@
+// ignore_for_file: file_names, must_be_immutable, camel_case_types, non_constant_identifier_names, use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_application_1/Services/Status_Service.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'Login_Screen.dart';
 import 'Main_Screen.dart';
 import 'Services/Auth.dart';
 
@@ -29,53 +25,52 @@ class Profile_Settings extends StatefulWidget {
 }
 
 class _Profile_SettingsState extends State<Profile_Settings> {
-  @override
   final currentuser = FirebaseAuth.instance;
-  Auth _authservice = Auth();
-  Status_Service _status_service = Status_Service();
+  final Auth _authservice = Auth();
+  final Status_Service _status_service = Status_Service();
 
   late File _image;
   final ImagePicker _picker = ImagePicker();
   String _Person_PP = "Not Attend";
   String imageUrl = "not attend";
-  StreamController _myStream = StreamController.broadcast();
 
   TextEditingController newName = TextEditingController();
   TextEditingController newSurname = TextEditingController();
 
-  Future uploadToStoarge(File _imageFile) async {
-    String path = widget.email + "-Photo";
+  Future uploadToStoarge(File imageFile) async {
+    String path = "${widget.email}-Photo";
     TaskSnapshot uploadTask = await FirebaseStorage.instance
         .ref()
         .child("Photos")
         .child(path)
-        .putFile(_imageFile);
+        .putFile(imageFile);
     imageUrl = await uploadTask.ref.getDownloadURL();
     return imageUrl;
   }
 
   void getImage() async {
-    final _pickedFile =
+    final pickedFile =
         await _picker.pickImage(source: ImageSource.gallery, imageQuality: 40);
     setState(() {
-      if (_pickedFile != null) {
-        _image = File(_pickedFile.path);
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
       } else {
-        return null;
+        return;
       }
     });
 
-    if (_pickedFile != null) {
+    if (pickedFile != null) {
       _Person_PP = await uploadToStoarge(_image);
     }
     Get.snackbar("Profil Fotoğrafınız Güncellendi", "Lütfen bekleyiniz...",
         backgroundColor: Colors.white,
         snackPosition: SnackPosition.TOP,
         colorText: Colors.blue,
-        duration: Duration(seconds: 3));
+        duration: const Duration(seconds: 3));
     _status_service.updatePhoto(_Person_PP).then((value) => print(_Person_PP));
   }
 
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
@@ -84,13 +79,13 @@ class _Profile_SettingsState extends State<Profile_Settings> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               FontAwesomeIcons.arrowLeft,
               color: Colors.blue,
               size: 20,
             ),
             onPressed: () {
-              Get.to(() => Main_Screen());
+              Get.to(() => const Main_Screen());
             },
           ),
         ),
@@ -101,7 +96,7 @@ class _Profile_SettingsState extends State<Profile_Settings> {
                 .snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> asyncSnapshot) {
               if (asyncSnapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (asyncSnapshot.hasData) {
                 return SizedBox(
@@ -131,7 +126,7 @@ class _Profile_SettingsState extends State<Profile_Settings> {
                                       radius: 75),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               ListTile(
@@ -141,9 +136,9 @@ class _Profile_SettingsState extends State<Profile_Settings> {
                                     fontSize: 20,
                                   ),
                                 ),
-                                textColor: Color(0xFF3DA5D9),
-                                iconColor: Color(0xFF3DA5D9),
-                                leading: Icon(Icons.people),
+                                textColor: const Color(0xFF3DA5D9),
+                                iconColor: const Color(0xFF3DA5D9),
+                                leading: const Icon(Icons.people),
                                 trailing: IconButton(
                                     onPressed: () {
                                       showDialog(
@@ -190,9 +185,9 @@ class _Profile_SettingsState extends State<Profile_Settings> {
                                             );
                                           });
                                     },
-                                    icon: Icon(Icons.settings)),
+                                    icon: const Icon(Icons.settings)),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               ListTile(
@@ -202,9 +197,9 @@ class _Profile_SettingsState extends State<Profile_Settings> {
                                     fontSize: 20,
                                   ),
                                 ),
-                                textColor: Color(0xFF3DA5D9),
-                                iconColor: Color(0xFF3DA5D9),
-                                leading: Icon(Icons.people),
+                                textColor: const Color(0xFF3DA5D9),
+                                iconColor: const Color(0xFF3DA5D9),
+                                leading: const Icon(Icons.people),
                                 trailing: IconButton(
                                     onPressed: () {
                                       showDialog(
@@ -251,9 +246,9 @@ class _Profile_SettingsState extends State<Profile_Settings> {
                                             );
                                           });
                                     },
-                                    icon: Icon(Icons.settings)),
+                                    icon: const Icon(Icons.settings)),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               ListTile(
@@ -263,9 +258,9 @@ class _Profile_SettingsState extends State<Profile_Settings> {
                                     fontSize: 17,
                                   ),
                                 ),
-                                textColor: Color(0xFF3DA5D9),
-                                iconColor: Color(0xFF3DA5D9),
-                                leading: Icon(
+                                textColor: const Color(0xFF3DA5D9),
+                                iconColor: const Color(0xFF3DA5D9),
+                                leading: const Icon(
                                   Icons.email,
                                 ),
                               ),
@@ -292,9 +287,9 @@ class _Profile_SettingsState extends State<Profile_Settings> {
                       })),
                 );
               } else if (asyncSnapshot.hasError) {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               } else {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
             }),
       ),

@@ -3,12 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'Login_Screen.dart';
 import 'Services/Auth.dart';
-import 'Signup.dart';
 
 class Forget_password extends StatefulWidget {
   const Forget_password({Key? key}) : super(key: key);
@@ -18,10 +16,10 @@ class Forget_password extends StatefulWidget {
 }
 
 class _Forget_passwordState extends State<Forget_password> {
-  @override
-  TextEditingController _email = TextEditingController();
+  final TextEditingController _email = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  Auth _authservice = Auth();
+  final Auth _authservice = Auth();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
@@ -29,12 +27,13 @@ class _Forget_passwordState extends State<Forget_password> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 150,
                 ),
                 Image.asset("images/Question.png"),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 40),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 40),
                   child: TextFormField(
                     controller: _email,
                     validator: (value) {
@@ -45,8 +44,8 @@ class _Forget_passwordState extends State<Forget_password> {
                     },
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      prefixIcon: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                      prefixIcon: const Padding(
+                        padding: EdgeInsets.all(12.0),
                         child: FaIcon(
                           Icons.mail,
                           color: Color(0xFF3DA5D9),
@@ -62,14 +61,14 @@ class _Forget_passwordState extends State<Forget_password> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(40, 40),
+                    minimumSize: const Size(40, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
                         10.0,
                       ),
                     ),
-                    primary: Colors.white,
-                    side: BorderSide(
+                    backgroundColor: Colors.white,
+                    side: const BorderSide(
                       color: Colors.grey,
                     ),
                   ),
@@ -87,23 +86,23 @@ class _Forget_passwordState extends State<Forget_password> {
                                       backgroundColor: Colors.white,
                                       snackPosition: SnackPosition.TOP,
                                       colorText: Colors.blue));
-                              Get.to(() => Login_Scree(),
+                              Get.to(() => const Login_Scree(),
                                   transition: Transition.cupertino,
-                                  duration: Duration(seconds: 1));
+                                  duration: const Duration(seconds: 1));
                             })
                           }
                       }),
                   child: Text(
                       "                      Gönder                     ",
                       style: GoogleFonts.montserrat(
-                          color: Color(0xFF3DA5D9), fontSize: 20)),
+                          color: const Color(0xFF3DA5D9), fontSize: 20)),
                 ),
                 TextButton(
                   onPressed: () {
                     Get.to(
-                      Login_Scree(),
+                      const Login_Scree(),
                       transition: Transition.cupertino,
-                      duration: Duration(seconds: 1),
+                      duration: const Duration(seconds: 1),
                     );
                   },
                   child: Text(

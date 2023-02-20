@@ -1,8 +1,9 @@
+// ignore_for_file: file_names, camel_case_types
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get_navigation/src/routes/circular_reveal_clipper.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,17 +17,16 @@ class My_post extends StatefulWidget {
 }
 
 class _My_postState extends State<My_post> {
-  @override
-  Status_Service _statusService = Status_Service();
-  bool _isFlipped = false;
+  final Status_Service _statusService = Status_Service();
   final currentuser = FirebaseAuth.instance;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 65,
           ),
           StreamBuilder<QuerySnapshot>(
@@ -39,14 +39,14 @@ class _My_postState extends State<My_post> {
                   .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> asyncSnapshot) {
                 if (asyncSnapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                       child: CircularProgressIndicator(
                     value: 20,
                   ));
                 }
                 if (!asyncSnapshot.hasData ||
                     asyncSnapshot.data!.docs.isEmpty) {
-                  return new Column(
+                  return Column(
                     children: [
                       Image.asset(
                         "images/Post.png",
@@ -57,8 +57,9 @@ class _My_postState extends State<My_post> {
                         child: ListTile(
                           titleTextStyle: GoogleFonts.montserrat(
                               fontWeight: FontWeight.bold, fontSize: 15),
-                          textColor: Color(0xFF3DA5D9),
-                          title: Text("Henüz Yayinladiğin Bir Yolculuk Yok"),
+                          textColor: const Color(0xFF3DA5D9),
+                          title:
+                              const Text("Henüz Yayinladiğin Bir Yolculuk Yok"),
                         ),
                       )
                     ],
@@ -70,7 +71,7 @@ class _My_postState extends State<My_post> {
                       height: 10000,
                       width: 10000,
                       child: ListView.builder(
-                        physics: ScrollPhysics(),
+                        physics: const ScrollPhysics(),
                         itemCount: asyncSnapshot.data!.size,
                         itemBuilder: (context, index) {
                           DocumentSnapshot mypost =
@@ -83,10 +84,11 @@ class _My_postState extends State<My_post> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
-                                        color: Color(0xFF3DA5D9), width: 2)),
+                                        color: const Color(0xFF3DA5D9),
+                                        width: 2)),
                                 child: Column(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 8,
                                     ),
                                     ListTile(
@@ -105,7 +107,7 @@ class _My_postState extends State<My_post> {
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 8,
                                           ),
                                           Text(
@@ -124,7 +126,7 @@ class _My_postState extends State<My_post> {
                                           _statusService
                                               .deleteStatus(snapshot.id);
                                         },
-                                        icon: Icon(Icons.delete),
+                                        icon: const Icon(Icons.delete),
                                       ),
                                     ),
                                     ListTile(
@@ -167,10 +169,10 @@ class _My_postState extends State<My_post> {
                                                   );
                                                 });
                                           },
-                                          icon: Icon(Icons.info_outline)),
-                                      subtitle: Text("Başlangıç"),
+                                          icon: const Icon(Icons.info_outline)),
+                                      subtitle: const Text("Başlangıç"),
                                       iconColor: Colors.blue,
-                                      leading: Icon(Icons.gps_not_fixed),
+                                      leading: const Icon(Icons.gps_not_fixed),
                                       title: Text(
                                         mypost["nerden"],
                                         style: GoogleFonts.montserrat(
@@ -179,9 +181,9 @@ class _My_postState extends State<My_post> {
                                       ),
                                     ),
                                     ListTile(
-                                      subtitle: Text("Bitiş"),
+                                      subtitle: const Text("Bitiş"),
                                       iconColor: Colors.blue,
-                                      leading: Icon(Icons.place),
+                                      leading: const Icon(Icons.place),
                                       title: Text(
                                         mypost["nereye"],
                                         style: GoogleFonts.montserrat(
@@ -190,9 +192,9 @@ class _My_postState extends State<My_post> {
                                       ),
                                     ),
                                     ListTile(
-                                      subtitle: Text("Ücret"),
+                                      subtitle: const Text("Ücret"),
                                       iconColor: Colors.blue,
-                                      leading: Icon(
+                                      leading: const Icon(
                                           FontAwesomeIcons.turkishLiraSign),
                                       title: Text(
                                         mypost["price"],
@@ -202,9 +204,10 @@ class _My_postState extends State<My_post> {
                                       ),
                                     ),
                                     ListTile(
-                                      subtitle: Text("Tarih"),
+                                      subtitle: const Text("Tarih"),
                                       iconColor: Colors.blue,
-                                      leading: Icon(Icons.date_range_outlined),
+                                      leading:
+                                          const Icon(Icons.date_range_outlined),
                                       title: Text(
                                         mypost["date"],
                                         style: GoogleFonts.montserrat(
@@ -213,9 +216,10 @@ class _My_postState extends State<My_post> {
                                       ),
                                     ),
                                     ListTile(
-                                      subtitle: Text("Saat"),
+                                      subtitle: const Text("Saat"),
                                       iconColor: Colors.blue,
-                                      leading: Icon(FontAwesomeIcons.clock),
+                                      leading:
+                                          const Icon(FontAwesomeIcons.clock),
                                       title: Text(
                                         mypost["time"],
                                         style: GoogleFonts.montserrat(
@@ -229,7 +233,7 @@ class _My_postState extends State<My_post> {
                         },
                       ));
                 } else {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
               }),
         ],

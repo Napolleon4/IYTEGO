@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Welcome_page.dart';
-import 'package:flutter_application_1/firebase_options.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,15 +19,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  final Future<FirebaseApp> _initialization =
-      Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  MyHomePage({
+  const MyHomePage({
     Key? key,
   }) : super(key: key);
 
@@ -44,13 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
       future: _initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text("EROR"),
           );
         } else if (snapshot.hasData) {
-          return Welcome_page();
+          return const Welcome_page();
         } else {
-          return CircularProgressIndicator(
+          return const CircularProgressIndicator(
             color: Color(0xFF3DA5D9),
           );
         }

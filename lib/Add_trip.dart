@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, must_be_immutable, camel_case_types, non_constant_identifier_names, prefer_typing_uninitialized_variables, unused_field
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:day_night_time_picker/lib/daynight_timepicker.dart';
@@ -8,7 +10,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'Main_Screen.dart';
 import 'Services/Status_Service.dart';
@@ -22,20 +23,18 @@ class Add_trip extends StatefulWidget {
 }
 
 class _Add_tripState extends State<Add_trip> {
-  @override
-  TextEditingController _nerden = TextEditingController();
+  final TextEditingController _nerden = TextEditingController();
   TextEditingController yol = TextEditingController();
-  TextEditingController _nereye = TextEditingController();
-  TextEditingController _price = TextEditingController();
+  final TextEditingController _nereye = TextEditingController();
+  final TextEditingController _price = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final currentuser = FirebaseAuth.instance;
 
-  TimeOfDay _time = TimeOfDay.now();
+  final TimeOfDay _time = TimeOfDay.now();
 
-  DatePickerController _controller = DatePickerController();
+  final DatePickerController _controller = DatePickerController();
 
-  DateTime _selectedValue = DateTime.now();
-  @override
+  final DateTime _selectedValue = DateTime.now();
   var _selectedTime;
   var _selectedDate;
 
@@ -46,23 +45,20 @@ class _Add_tripState extends State<Add_trip> {
       _selectedTime = newTime;
 
       if (_selectedTime.minute <= 9) {
-        _TIME = _selectedTime.hour.toString() +
-            ":" +
-            "0${_selectedTime.minute.toString()}";
+        _TIME = "${_selectedTime.hour}:0${_selectedTime.minute.toString()}";
       } else {
-        _TIME = _selectedTime.hour.toString() +
-            ":" +
-            _selectedTime.minute.toString();
+        _TIME = "${_selectedTime.hour}:${_selectedTime.minute}";
       }
     });
   }
 
-  Status_Service _status_service = Status_Service();
-  Calculator _calculator = Calculator();
+  final Status_Service _status_service = Status_Service();
+  final Calculator _calculator = Calculator();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Color(0xFF3DA5D9),
           ),
           elevation: 0,
@@ -94,15 +90,15 @@ class _Add_tripState extends State<Add_trip> {
                             width: 800,
                             child: ListView(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 150,
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 12.0, horizontal: 40),
                                   child: TypeAheadFormField(
                                       validator: (value) {
-                                        if (value!.isEmpty || value == null) {
+                                        if (value!.isEmpty) {
                                           return 'Lütfen  Lokasyon seçiniz';
                                         }
                                         return null;
@@ -110,9 +106,9 @@ class _Add_tripState extends State<Add_trip> {
                                       textFieldConfiguration:
                                           TextFieldConfiguration(
                                         controller: _nerden,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           prefixIcon: Padding(
-                                            padding: const EdgeInsets.all(6.0),
+                                            padding: EdgeInsets.all(6.0),
                                             child: FaIcon(
                                               Icons.add_location_alt,
                                               color: Color(0xFF3DA5D9),
@@ -130,13 +126,14 @@ class _Add_tripState extends State<Add_trip> {
                                       },
                                       itemBuilder: (context, suggestion) {
                                         return ListTile(
-                                          leading: Icon(
+                                          leading: const Icon(
                                             FontAwesomeIcons.locationArrow,
                                             color: Color(0xFF3DA5D9),
                                           ),
                                           title: Text(
                                             suggestion,
-                                            selectionColor: Color(0xFF3DA5D9),
+                                            selectionColor:
+                                                const Color(0xFF3DA5D9),
                                             style: GoogleFonts.montserrat(),
                                           ),
                                         );
@@ -146,11 +143,11 @@ class _Add_tripState extends State<Add_trip> {
                                       }),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 12.0, horizontal: 40),
                                   child: TypeAheadFormField(
                                       validator: (value) {
-                                        if (value!.isEmpty || value == null) {
+                                        if (value!.isEmpty) {
                                           return 'Lütfen  Lokasyon seçiniz';
                                         }
                                         return null;
@@ -158,9 +155,9 @@ class _Add_tripState extends State<Add_trip> {
                                       textFieldConfiguration:
                                           TextFieldConfiguration(
                                         controller: _nereye,
-                                        decoration: InputDecoration(
+                                        decoration: const InputDecoration(
                                           prefixIcon: Padding(
-                                            padding: const EdgeInsets.all(6.0),
+                                            padding: EdgeInsets.all(6.0),
                                             child: FaIcon(
                                               Icons.add_location_alt,
                                               color: Color(0xFF3DA5D9),
@@ -178,13 +175,14 @@ class _Add_tripState extends State<Add_trip> {
                                       },
                                       itemBuilder: (context, suggestion) {
                                         return ListTile(
-                                          leading: Icon(
+                                          leading: const Icon(
                                             FontAwesomeIcons.locationArrow,
                                             color: Color(0xFF3DA5D9),
                                           ),
                                           title: Text(
                                             suggestion,
-                                            selectionColor: Color(0xFF3DA5D9),
+                                            selectionColor:
+                                                const Color(0xFF3DA5D9),
                                             style: GoogleFonts.montserrat(),
                                           ),
                                         );
@@ -194,7 +192,7 @@ class _Add_tripState extends State<Add_trip> {
                                       }),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 12.0, horizontal: 40),
                                   child: TextFormField(
                                     keyboardType: TextInputType.number,
@@ -205,9 +203,9 @@ class _Add_tripState extends State<Add_trip> {
                                       }
                                       return null;
                                     },
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       prefixIcon: Padding(
-                                        padding: const EdgeInsets.all(12.0),
+                                        padding: EdgeInsets.all(12.0),
                                         child: FaIcon(
                                           FontAwesomeIcons.turkishLiraSign,
                                           color: Color(0xFF3DA5D9),
@@ -232,9 +230,10 @@ class _Add_tripState extends State<Add_trip> {
                                                   content: TextFormField(
                                                       controller: yol,
                                                       maxLines: 2,
-                                                      decoration: InputDecoration(
-                                                          hintText:
-                                                              "Örn: Otabanı kullanıcam...")),
+                                                      decoration:
+                                                          const InputDecoration(
+                                                              hintText:
+                                                                  "Örn: Otabanı kullanıcam...")),
                                                   title: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -264,8 +263,8 @@ class _Add_tripState extends State<Add_trip> {
                                                 );
                                               });
                                         },
-                                        icon: Icon(Icons.info_outline),
-                                        label: Text("Güzergah")),
+                                        icon: const Icon(Icons.info_outline),
+                                        label: const Text("Güzergah")),
                                     TextButton.icon(
                                         onPressed: () async {
                                           _selectedDate = await showDatePicker(
@@ -276,9 +275,10 @@ class _Add_tripState extends State<Add_trip> {
                                             firstDate: DateTime(2023),
                                             lastDate: DateTime(2026),
                                           );
-                                          print(" Date Day: $_selectedDate");
+                                          print(
+                                              " Date Day: ${Calculator.datetimetoString(_selectedDate)} ");
                                         },
-                                        icon: Icon(Icons.date_range),
+                                        icon: const Icon(Icons.date_range),
                                         label: Text("Tarih",
                                             style: GoogleFonts.montserrat())),
                                     TextButton.icon(
@@ -292,9 +292,9 @@ class _Add_tripState extends State<Add_trip> {
                                               onChange: onTimeChanged,
                                             ),
                                           );
-                                          print(" Time :  $_selectedTime");
+                                          print(" Time :  $_TIME");
                                         },
-                                        icon: Icon(FontAwesomeIcons.clock,
+                                        icon: const Icon(FontAwesomeIcons.clock,
                                             size: 20),
                                         label: Text(
                                           "Saat",
@@ -371,16 +371,16 @@ class _Add_tripState extends State<Add_trip> {
                                                               SnackPosition.TOP,
                                                           colorText:
                                                               Colors.white)),
-                                                  Get.to(Main_Screen(),
+                                                  Get.to(const Main_Screen(),
                                                       transition:
                                                           Transition.cupertino,
-                                                      duration:
-                                                          Duration(seconds: 1))
+                                                      duration: const Duration(
+                                                          seconds: 1))
                                                 }
                                             }
                                         }),
                                     style: ElevatedButton.styleFrom(
-                                      minimumSize: Size(40, 40),
+                                      minimumSize: const Size(40, 40),
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10.0)),
@@ -396,9 +396,9 @@ class _Add_tripState extends State<Add_trip> {
                         })),
                   );
                 } else if (asyncSnapshot.hasError) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               }),
         ));

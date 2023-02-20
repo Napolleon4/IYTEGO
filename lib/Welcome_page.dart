@@ -1,9 +1,7 @@
+// ignore_for_file: file_names, camel_case_types
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'Login_Screen.dart';
@@ -17,23 +15,25 @@ class Welcome_page extends StatefulWidget {
 }
 
 class _Welcome_pageState extends State<Welcome_page> {
-  @override
   bool animte = false;
+  @override
   void initState() {
+    super.initState();
     startAnimation();
   }
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Color(0xFF3DA5D9),
+          backgroundColor: const Color(0xFF3DA5D9),
           body: AnimatedOpacity(
-            duration: Duration(milliseconds: 1600),
+            duration: const Duration(milliseconds: 1600),
             opacity: animte ? 1 : 0,
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
                   Padding(
@@ -62,7 +62,7 @@ class _Welcome_pageState extends State<Welcome_page> {
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 60,
                         ),
                         Text(
@@ -75,7 +75,7 @@ class _Welcome_pageState extends State<Welcome_page> {
                   ),
                   Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 60,
                       ),
                       Text(
@@ -84,42 +84,42 @@ class _Welcome_pageState extends State<Welcome_page> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 100),
+                  const SizedBox(height: 100),
                   ElevatedButton(
                     onPressed: (() => {
                           Get.to(
-                            () => Login_Scree(),
+                            () => const Login_Scree(),
                             transition: Transition.cupertino,
-                            duration: Duration(seconds: 1),
+                            duration: const Duration(seconds: 1),
                           ),
                         }),
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(40, 40),
-                      primary: Colors.white,
+                      minimumSize: const Size(40, 40),
+                      backgroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
                     child: Text(
                         "                   Giriş Yap                   ",
                         style: GoogleFonts.montserrat(
-                            color: Color(0xFF3DA5D9), fontSize: 20)),
+                            color: const Color(0xFF3DA5D9), fontSize: 20)),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(40, 40),
-                      primary: Color(0xFF3DA5D9),
+                      minimumSize: const Size(40, 40),
+                      backgroundColor: const Color(0xFF3DA5D9),
                       shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.white),
+                          side: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
                     onPressed: (() => {
                           Get.to(
-                            () => Signup(),
+                            () => const Signup(),
                             transition: Transition.cupertino,
-                            duration: Duration(seconds: 1),
+                            duration: const Duration(seconds: 1),
                           ),
                         }),
                     child: Text(
@@ -135,7 +135,7 @@ class _Welcome_pageState extends State<Welcome_page> {
   }
 
   Future startAnimation() async {
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     setState(() {
       animte = true;
     });

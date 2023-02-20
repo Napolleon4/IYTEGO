@@ -1,10 +1,8 @@
-import 'dart:ffi';
+// ignore_for_file: file_names, non_constant_identifier_names
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 import '../Last_step.dart';
 import '../Main_Screen.dart';
@@ -23,7 +21,7 @@ class Auth {
             snackPosition: SnackPosition.TOP,
             colorText: Colors.blue);
       } else {
-        Get.to(() => Main_Screen());
+        Get.to(() => const Main_Screen());
       }
     } on FirebaseAuthException catch (e) {
       String? title = e.code.replaceAll(RegExp('-'), ' ').capitalize;
@@ -67,9 +65,9 @@ class Auth {
             backgroundColor: Colors.white,
             snackPosition: SnackPosition.TOP,
             colorText: Colors.blue);
-      }).then((value) => Get.to(() => Last_step(),
+      }).then((value) => Get.to(() => const Last_step(),
               transition: Transition.cupertino,
-              duration: Duration(seconds: 1)));
+              duration: const Duration(seconds: 1)));
     } on FirebaseAuthException catch (e) {
       String? title = e.code.replaceAll(RegExp('-'), ' ').capitalize;
       String message = '';
@@ -92,11 +90,6 @@ class Auth {
           backgroundColor: Colors.blue,
           colorText: Colors.white);
     }
-  }
-
-  Future<String> getCurrentId() async {
-    String uid = await _firebaseauth.currentUser!.uid;
-    return uid;
   }
 
   Future<void> resetPassword(String email) async {

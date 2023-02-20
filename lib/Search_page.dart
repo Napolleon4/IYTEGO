@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_picker_timeline/date_picker_timeline.dart';
+// ignore_for_file: file_names, camel_case_types, prefer_typing_uninitialized_variables
+
 import 'package:day_night_time_picker/day_night_time_picker.dart';
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,15 +18,11 @@ class Search_page extends StatefulWidget {
 }
 
 class _Search_pageState extends State<Search_page> {
-  @override
   final _formKey = GlobalKey<FormState>();
   TimeOfDay _time = TimeOfDay.now();
-  TextEditingController _nerden = TextEditingController();
-  TextEditingController _nereye = TextEditingController();
-  DatePickerController _controller = DatePickerController();
+  final TextEditingController _nerden = TextEditingController();
+  final TextEditingController _nereye = TextEditingController();
 
-  DateTime _selectedValue = DateTime.now();
-  @override
   var _selectedTime;
   var _selectedDate;
 
@@ -37,6 +32,7 @@ class _Search_pageState extends State<Search_page> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
@@ -44,7 +40,7 @@ class _Search_pageState extends State<Search_page> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               Padding(
@@ -53,41 +49,42 @@ class _Search_pageState extends State<Search_page> {
                   height: 400,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Color(0xFF3DA5D9), width: 2)),
+                      border:
+                          Border.all(color: const Color(0xFF3DA5D9), width: 2)),
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.search, color: Colors.blue),
+                          const Icon(Icons.search, color: Colors.blue),
                           Text(
                             "YOLCULUK BUL",
                             style: GoogleFonts.montserrat(
-                                color: Color(0xFF3DA5D9), fontSize: 20),
+                                color: const Color(0xFF3DA5D9), fontSize: 20),
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             vertical: 12.0, horizontal: 40),
                         child: TypeAheadFormField(
                             validator: (value) {
-                              if (value!.isEmpty || value == null) {
+                              if (value!.isEmpty) {
                                 return 'Lütfen  Lokasyon seçiniz';
                               }
                               return null;
                             },
                             textFieldConfiguration: TextFieldConfiguration(
                               controller: _nerden,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 prefixIcon: Padding(
-                                  padding: const EdgeInsets.all(12.0),
+                                  padding: EdgeInsets.all(12.0),
                                   child: FaIcon(
                                     Icons.gps_not_fixed,
                                     color: Color(0xFF3DA5D9),
@@ -106,13 +103,13 @@ class _Search_pageState extends State<Search_page> {
                             },
                             itemBuilder: (context, suggestion) {
                               return ListTile(
-                                leading: Icon(
+                                leading: const Icon(
                                   FontAwesomeIcons.locationArrow,
                                   color: Color(0xFF3DA5D9),
                                 ),
                                 title: Text(
                                   suggestion,
-                                  selectionColor: Color(0xFF3DA5D9),
+                                  selectionColor: const Color(0xFF3DA5D9),
                                   style: GoogleFonts.montserrat(),
                                 ),
                               );
@@ -122,20 +119,20 @@ class _Search_pageState extends State<Search_page> {
                             }),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             vertical: 12.0, horizontal: 40),
                         child: TypeAheadFormField(
                             validator: (value) {
-                              if (value!.isEmpty || value == null) {
+                              if (value!.isEmpty) {
                                 return 'Lütfen  Lokasyon seçiniz';
                               }
                               return null;
                             },
                             textFieldConfiguration: TextFieldConfiguration(
                               controller: _nereye,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 prefixIcon: Padding(
-                                  padding: const EdgeInsets.all(12.0),
+                                  padding: EdgeInsets.all(12.0),
                                   child: FaIcon(
                                     Icons.place,
                                     color: Color(0xFF3DA5D9),
@@ -152,13 +149,13 @@ class _Search_pageState extends State<Search_page> {
                             },
                             itemBuilder: (context, suggestion) {
                               return ListTile(
-                                leading: Icon(
+                                leading: const Icon(
                                   FontAwesomeIcons.locationArrow,
                                   color: Color(0xFF3DA5D9),
                                 ),
                                 title: Text(
                                   suggestion,
-                                  selectionColor: Color(0xFF3DA5D9),
+                                  selectionColor: const Color(0xFF3DA5D9),
                                   style: GoogleFonts.montserrat(),
                                 ),
                               );
@@ -181,7 +178,7 @@ class _Search_pageState extends State<Search_page> {
                                 );
                                 print(" Date Day: $_selectedDate");
                               },
-                              icon: Icon(Icons.date_range),
+                              icon: const Icon(Icons.date_range),
                               label: Text("Tarih",
                                   style: GoogleFonts.montserrat())),
                           TextButton.icon(
@@ -197,7 +194,8 @@ class _Search_pageState extends State<Search_page> {
                                 );
                                 print(" Time :  $_selectedTime");
                               },
-                              icon: Icon(FontAwesomeIcons.clock, size: 20),
+                              icon:
+                                  const Icon(FontAwesomeIcons.clock, size: 20),
                               label: Text(
                                 "Saat",
                                 style: GoogleFonts.montserrat(),
@@ -231,12 +229,12 @@ class _Search_pageState extends State<Search_page> {
                                                     .trim(),
                                               ),
                                           transition: Transition.cupertino,
-                                          duration: Duration(seconds: 1))
+                                          duration: const Duration(seconds: 1))
                                     }
                                 }
                             }),
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(40, 40),
+                          minimumSize: const Size(40, 40),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0)),
                         ),

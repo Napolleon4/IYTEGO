@@ -1,15 +1,12 @@
+// ignore_for_file: file_names
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:im_stepper/main.dart';
 import 'package:im_stepper/stepper.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:provider/provider.dart';
 
 import 'Login_Screen.dart';
-import 'Services/Auth.dart';
-import 'Services/Users_services.dart';
 import 'Step_image_name.dart';
 
 class Signup extends StatefulWidget {
@@ -21,12 +18,10 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   int activeStep = 0;
-  Auth _auth = Auth();
-  Userservice _userservice = Userservice();
   final currentuser = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-  var _email = TextEditingController();
-  var _password = TextEditingController();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
   String name = "";
   String surname = "";
   @override
@@ -37,15 +32,16 @@ class _SignupState extends State<Signup> {
           key: _formKey,
           child: SingleChildScrollView(
               child: Column(children: [
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             Image.asset("images/Photo3.png"),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
               child: TextFormField(
                 validator: (value) {
-                  if (!value!.contains("@") || value == null || value.isEmpty) {
+                  if (!value!.contains("@") || value.isEmpty) {
                     return 'Lütfen İYTE Mail adresinizi giriniz';
                   }
                   return null;
@@ -53,7 +49,7 @@ class _SignupState extends State<Signup> {
                 controller: _email,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  icon: FaIcon(
+                  icon: const FaIcon(
                     Icons.mail_outline,
                     color: Color(0xFF3DA5D9),
                   ),
@@ -66,7 +62,8 @@ class _SignupState extends State<Signup> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
               child: TextFormField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -77,7 +74,7 @@ class _SignupState extends State<Signup> {
                 controller: _password,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                  icon: FaIcon(
+                  icon: const FaIcon(
                     Icons.lock,
                     color: Color(0xFF3DA5D9),
                   ),
@@ -91,8 +88,8 @@ class _SignupState extends State<Signup> {
             ),
             IconStepper(
               activeStep: 0,
-              activeStepColor: Color(0xFF3DA5D9),
-              icons: [
+              activeStepColor: const Color(0xFF3DA5D9),
+              icons: const [
                 Icon(
                   Icons.people,
                 ),
@@ -111,12 +108,12 @@ class _SignupState extends State<Signup> {
             TextButton(
               onPressed: () {
                 Get.to(
-                  () => Login_Scree(),
+                  () => const Login_Scree(),
                   transition: Transition.cupertino,
-                  duration: Duration(seconds: 1),
+                  duration: const Duration(seconds: 1),
                 );
               },
-              child: Text(
+              child: const Text(
                 "Giriş Yap",
                 style: TextStyle(fontSize: 17),
               ),

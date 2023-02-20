@@ -1,10 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: file_names, camel_case_types
+
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'Forget_password.dart';
 import 'Services/Auth.dart';
 import 'Signup.dart';
@@ -18,10 +18,10 @@ class Login_Scree extends StatefulWidget {
 }
 
 class _Login_ScreeState extends State<Login_Scree> {
-  TextEditingController _email = TextEditingController();
-  TextEditingController _password = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  Auth _authservice = Auth();
+  final Auth _authservice = Auth();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,15 +51,15 @@ class _Login_ScreeState extends State<Login_Scree> {
                         onPressed: () {
                           Get.to(MyHomePage(),
                               transition: Transition.cupertino,
-                              duration: Duration(seconds: 1));
+                              duration: const Duration(seconds: 1));
                         },
-                        icon: Icon(Icons.arrow_back_ios))),
+                        icon: const Icon(Icons.arrow_back_ios))),
               ),
               Positioned(
                 left: 30,
                 top: 100,
                 child: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Text(
                     'Hoşgeldin!',
                     style: GoogleFonts.montserrat(
@@ -69,19 +69,20 @@ class _Login_ScreeState extends State<Login_Scree> {
               )
             ]),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 40),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 40),
               child: TextFormField(
                 controller: _email,
                 validator: (value) {
-                  if (!value!.contains("@") || value == null || value.isEmpty) {
+                  if (!value!.contains("@") || value.isEmpty) {
                     return 'Lütfen İYTE E-mail adresinizi giriniz';
                   }
                   return null;
                 },
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                  prefixIcon: const Padding(
+                    padding: EdgeInsets.all(12.0),
                     child: FaIcon(
                       Icons.email,
                       color: Color(0xFF3DA5D9),
@@ -96,7 +97,8 @@ class _Login_ScreeState extends State<Login_Scree> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 40),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 40),
               child: TextFormField(
                 controller: _password,
                 validator: (value) {
@@ -110,8 +112,8 @@ class _Login_ScreeState extends State<Login_Scree> {
                 autocorrect: false,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                  prefixIcon: const Padding(
+                    padding: EdgeInsets.all(12.0),
                     child: FaIcon(
                       Icons.lock,
                       color: Color(0xFF3DA5D9),
@@ -128,18 +130,18 @@ class _Login_ScreeState extends State<Login_Scree> {
             TextButton(
                 onPressed: (() {
                   Get.to(
-                    () => Forget_password(),
+                    () => const Forget_password(),
                     transition: Transition.cupertino,
-                    duration: Duration(seconds: 1),
+                    duration: const Duration(seconds: 1),
                   );
                 }),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 175,
                     ),
-                    Icon(
+                    const Icon(
                       Icons.lock,
                       size: 17,
                       color: Color(0xFF3DA5D9),
@@ -147,7 +149,7 @@ class _Login_ScreeState extends State<Login_Scree> {
                     Text(
                       "Şifremi Unuttum",
                       style: GoogleFonts.montserrat(
-                          color: Color(0xFF3DA5D9), fontSize: 17),
+                          color: const Color(0xFF3DA5D9), fontSize: 17),
                     )
                   ],
                 )),
@@ -161,7 +163,7 @@ class _Login_ScreeState extends State<Login_Scree> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(40, 40),
+                minimumSize: const Size(40, 40),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)),
               ),
@@ -173,7 +175,7 @@ class _Login_ScreeState extends State<Login_Scree> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
+                const Expanded(
                   child: Divider(
                     indent: 43.0,
                     endIndent: 10.0,
@@ -182,9 +184,9 @@ class _Login_ScreeState extends State<Login_Scree> {
                 ),
                 Text(
                   "yada",
-                  style: GoogleFonts.montserrat(color: Color(0xFF3DA5D9)),
+                  style: GoogleFonts.montserrat(color: const Color(0xFF3DA5D9)),
                 ),
-                Expanded(
+                const Expanded(
                   child: Divider(
                     indent: 10.0,
                     endIndent: 43.0,
@@ -195,28 +197,28 @@ class _Login_ScreeState extends State<Login_Scree> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(40, 40),
+                minimumSize: const Size(40, 40),
+                backgroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
                     10.0,
                   ),
                 ),
-                primary: Colors.white,
-                side: BorderSide(
+                side: const BorderSide(
                   color: Colors.grey,
                 ),
               ),
               onPressed: (() => {
                     Get.to(
-                      () => Signup(),
+                      () => const Signup(),
                       transition: Transition.cupertino,
-                      duration: Duration(seconds: 1),
+                      duration: const Duration(seconds: 1),
                     ),
                   }),
               child: Text(
                   "                       Kayıt Ol                       ",
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFF3DA5D9), fontSize: 20)),
+                      color: const Color(0xFF3DA5D9), fontSize: 20)),
             ),
           ],
         ),

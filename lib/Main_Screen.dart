@@ -1,23 +1,16 @@
-import 'dart:io';
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names
+
 import 'dart:math';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:date_picker_timeline/date_picker_timeline.dart';
-import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Null_Favs.dart';
-import 'package:flutter_application_1/Services/Status_Service.dart';
-import 'package:flutter_inner_drawer/inner_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:f_datetimerangepicker/f_datetimerangepicker.dart';
 import 'package:get/get.dart';
-import 'dart:ui' as ui;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 import 'Add_trip.dart';
 import 'Favs_page.dart';
@@ -37,20 +30,19 @@ class Main_Screen extends StatefulWidget {
 }
 
 class _Main_ScreenState extends State<Main_Screen> {
-  Random random = new Random();
+  Random random = Random();
   int post_number = 0;
   int i = 0;
   int current_index = 0;
-  Auth _auth = Auth();
+  final Auth _auth = Auth();
   final currentuser = FirebaseAuth.instance;
   var screens = [
-    Search_page(),
-    My_post(),
+    const Search_page(),
+    const My_post(),
   ];
 
   late List tempList;
-  UniqueKey _key = UniqueKey();
-  Status_Service _status_service = Status_Service();
+  final UniqueKey _key = UniqueKey();
   @override
   initState() {
     tempList = [null, null, null, null, null, null, null, null, null, null];
@@ -58,12 +50,13 @@ class _Main_ScreenState extends State<Main_Screen> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFF3DA5D9),
+        backgroundColor: const Color(0xFF3DA5D9),
         onPressed: (() {
           setState(() {
             post_number = random.nextInt(1000000);
@@ -74,13 +67,13 @@ class _Main_ScreenState extends State<Main_Screen> {
                     my_post_number: post_number,
                   ),
               transition: Transition.downToUp,
-              duration: Duration(seconds: 1));
+              duration: const Duration(seconds: 1));
         }),
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       bottomNavigationBar: AnimatedBottomNavigationBar(
           iconSize: 30,
-          backgroundColor: Color(0xFF3DA5D9),
+          backgroundColor: const Color(0xFF3DA5D9),
           inactiveColor: Colors.white70,
           activeColor: Colors.white,
           gapLocation: GapLocation.center,
@@ -121,7 +114,7 @@ class _Main_ScreenState extends State<Main_Screen> {
                       (context, AsyncSnapshot<QuerySnapshot> asyncSnapshot) {
                     if (asyncSnapshot.connectionState ==
                         ConnectionState.waiting) {
-                      return CircleAvatar(
+                      return const CircleAvatar(
                           radius: 20, backgroundColor: Color(0xFF3DA5D9));
                     }
                     if (asyncSnapshot.hasData) {
@@ -130,16 +123,16 @@ class _Main_ScreenState extends State<Main_Screen> {
                           radius: 22,
                           backgroundImage:
                               NetworkImage(mypost2["Profile_Photo"]),
-                          backgroundColor: Color(0xFF3DA5D9));
+                          backgroundColor: const Color(0xFF3DA5D9));
                     }
                     if (!asyncSnapshot.hasData ||
                         asyncSnapshot.data!.docs.isEmpty) {
-                      return CircleAvatar(
+                      return const CircleAvatar(
                         radius: 20,
                         backgroundColor: Color(0xFF3DA5D9),
                       );
                     } else {
-                      return CircleAvatar(
+                      return const CircleAvatar(
                           minRadius: 22, backgroundColor: Color(0xFF3DA5D9));
                     }
                   }),
@@ -165,7 +158,7 @@ class _Main_ScreenState extends State<Main_Screen> {
             initialData: null,
             builder: (context, AsyncSnapshot<QuerySnapshot> asyncSnapshot) {
               if (asyncSnapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (asyncSnapshot.hasData) {
                 return SizedBox(
@@ -191,7 +184,7 @@ class _Main_ScreenState extends State<Main_Screen> {
                                   radius: 65,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 8,
                               ),
                               Row(
@@ -204,7 +197,7 @@ class _Main_ScreenState extends State<Main_Screen> {
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
                                   Text(
@@ -216,7 +209,7 @@ class _Main_ScreenState extends State<Main_Screen> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 40,
                               ),
                               ListTile(
@@ -238,7 +231,6 @@ class _Main_ScreenState extends State<Main_Screen> {
                                           .then((querySnapshot2) {
                                         querySnapshot2.docs.forEach((result) {
                                           tempList[i] = result.data();
-                                          print(tempList);
                                           i = i + 1;
                                         });
                                       });
@@ -249,9 +241,10 @@ class _Main_ScreenState extends State<Main_Screen> {
                                       colorText: Colors.blue,
                                       "Lütfen Bekleyiniz",
                                       "Yükleniyor....");
-                                  Future.delayed(new Duration(seconds: 3), () {
+                                  Future.delayed(const Duration(seconds: 3),
+                                      () {
                                     if (tempList[0] == null) {
-                                      Get.to(() => Null_Favs());
+                                      Get.to(() => const Null_Favs());
                                     } else {
                                       Get.to(
                                           () => Favs_page(favsList: tempList));
@@ -267,7 +260,8 @@ class _Main_ScreenState extends State<Main_Screen> {
                                 ),
                                 textColor: Colors.white,
                                 iconColor: Colors.white,
-                                leading: Icon(FontAwesomeIcons.solidBookmark),
+                                leading:
+                                    const Icon(FontAwesomeIcons.solidBookmark),
                               ),
                               ListTile(
                                 title: Text(
@@ -279,7 +273,7 @@ class _Main_ScreenState extends State<Main_Screen> {
                                 ),
                                 textColor: Colors.white,
                                 iconColor: Colors.white,
-                                leading: Icon(Icons.settings),
+                                leading: const Icon(Icons.settings),
                                 onTap: () {
                                   Get.to(() => Profile_Settings(
                                         email: mypost["email"],
@@ -297,16 +291,16 @@ class _Main_ScreenState extends State<Main_Screen> {
                                 ),
                                 textColor: Colors.white,
                                 iconColor: Colors.white,
-                                leading: Icon(
+                                leading: const Icon(
                                   Icons.people,
                                 ),
                               ),
                               ListTile(
                                 onTap: (() {
-                                  Get.to(() => Login_Scree());
+                                  Get.to(() => const Login_Scree());
 
                                   setState(() {
-                                    Future.delayed(Duration(seconds: 1),
+                                    Future.delayed(const Duration(seconds: 1),
                                         () => _auth.Out());
                                   });
                                 }),
@@ -319,7 +313,7 @@ class _Main_ScreenState extends State<Main_Screen> {
                                 ),
                                 textColor: Colors.white,
                                 iconColor: Colors.white,
-                                leading: Icon(Icons.logout),
+                                leading: const Icon(Icons.logout),
                               ),
                             ],
                           ),
@@ -328,12 +322,12 @@ class _Main_ScreenState extends State<Main_Screen> {
                 );
               }
               if (asyncSnapshot.hasError) {
-                return Center(child: Text("EROR"));
+                return const Center(child: Text("EROR"));
               } else {
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
             }),
-        backgroundColor: Color(0xFF3DA5D9),
+        backgroundColor: const Color(0xFF3DA5D9),
       ),
     );
   }
