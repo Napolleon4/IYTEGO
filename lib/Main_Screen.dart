@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Null_Favs.dart';
+import 'package:flutter_application_1/Messages_Page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -86,6 +87,18 @@ class _Main_ScreenState extends State<Main_Screen> {
           }),
       body: screens[current_index],
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.to(() => Messages_Page(),
+                    transition: Transition.cupertino,
+                    duration: Duration(seconds: 1));
+              },
+              icon: Icon(
+                FontAwesomeIcons.message,
+                color: Colors.blue,
+              ))
+        ],
         title: Padding(
           padding: const EdgeInsets.only(
             right: 50.0,
@@ -247,7 +260,9 @@ class _Main_ScreenState extends State<Main_Screen> {
                                       Get.to(() => const Null_Favs());
                                     } else {
                                       Get.to(
-                                          () => Favs_page(favsList: tempList));
+                                          () => Favs_page(favsList: tempList),
+                                          transition: Transition.cupertino,
+                                          duration: Duration(seconds: 1));
                                     }
                                   });
                                 },

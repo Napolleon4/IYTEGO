@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 
 import 'Services/Status_Service.dart';
 
@@ -92,10 +93,28 @@ class _My_postState extends State<My_post> {
                                       height: 8,
                                     ),
                                     ListTile(
-                                      leading: CircleAvatar(
-                                        backgroundImage: NetworkImage(
-                                            mypost["Profile_Photo"]),
-                                        backgroundColor: Colors.blue,
+                                      leading: InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  content: CircleAvatar(
+                                                    radius: 150,
+                                                    backgroundImage:
+                                                        NetworkImage(mypost[
+                                                            "Profile_Photo"]),
+                                                  ),
+                                                );
+                                              });
+                                        },
+                                        child: CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                              mypost["Profile_Photo"]),
+                                          backgroundColor: Colors.blue,
+                                        ),
                                       ),
                                       title: Row(
                                         mainAxisAlignment:
@@ -172,7 +191,10 @@ class _My_postState extends State<My_post> {
                                           icon: const Icon(Icons.info_outline)),
                                       subtitle: const Text("Başlangıç"),
                                       iconColor: Colors.blue,
-                                      leading: const Icon(Icons.gps_not_fixed),
+                                      leading: Icon(
+                                        Ionicons.location_outline,
+                                        color: Color(0xFF3DA5D9),
+                                      ),
                                       title: Text(
                                         mypost["nerden"],
                                         style: GoogleFonts.montserrat(

@@ -6,6 +6,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 
 import 'List_of_trips.dart';
 import 'Services/Calculate.dart';
@@ -82,11 +83,11 @@ class _Search_pageState extends State<Search_page> {
                             },
                             textFieldConfiguration: TextFieldConfiguration(
                               controller: _nerden,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                 prefixIcon: Padding(
                                   padding: EdgeInsets.all(12.0),
-                                  child: FaIcon(
-                                    Icons.gps_not_fixed,
+                                  child: Icon(
+                                    Ionicons.location_outline,
                                     color: Color(0xFF3DA5D9),
                                   ),
                                 ),

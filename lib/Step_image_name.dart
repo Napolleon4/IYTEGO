@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Last_step.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:im_stepper/stepper.dart';
@@ -169,12 +170,19 @@ class _Step_image_nameState extends State<Step_image_name> {
                           _auth
                               .signUp(widget.email, widget.password)
                               .then((value) => _auth.sendEmailVerif())
-                              .then((value) => _userservice.addUser(
-                                  currentuser.currentUser!.uid,
-                                  _name.text.toString().trim(),
-                                  _surname.text.toString().trim(),
-                                  widget.email,
-                                  _Person_PP));
+                              .then((value) => _userservice
+                                  .addUser(
+                                      currentuser.currentUser!.uid,
+                                      _name.text.toString().trim(),
+                                      _surname.text.toString().trim(),
+                                      widget.email,
+                                      _Person_PP)
+                                  .then((value) => Get.to(() => Last_step())));
+                          Get.snackbar(
+                              "Heasbınız Oluşturuldu", "Lütfen bekleyiniz...",
+                              backgroundColor: Colors.white,
+                              snackPosition: SnackPosition.TOP,
+                              colorText: Colors.blue);
                         }
                       }
                     });

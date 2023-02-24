@@ -58,16 +58,8 @@ class Auth {
 
   Future signUp(String email, String password) async {
     try {
-      await _firebaseauth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) {
-        Get.snackbar("Heasbınız Oluşturuldu", "Lütfen bekleyiniz...",
-            backgroundColor: Colors.white,
-            snackPosition: SnackPosition.TOP,
-            colorText: Colors.blue);
-      }).then((value) => Get.to(() => const Last_step(),
-              transition: Transition.cupertino,
-              duration: const Duration(seconds: 1)));
+      await _firebaseauth.createUserWithEmailAndPassword(
+          email: email, password: password);
     } on FirebaseAuthException catch (e) {
       String? title = e.code.replaceAll(RegExp('-'), ' ').capitalize;
       String message = '';

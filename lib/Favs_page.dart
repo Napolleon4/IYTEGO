@@ -3,9 +3,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Main_Screen.dart';
+import 'package:flutter_application_1/Message_To_User.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 
 import 'Services/Favs_Service.dart';
 import 'Services/Status_Service.dart';
@@ -70,11 +72,30 @@ class _List_of_tripsState extends State<Favs_page> {
                                 height: 8,
                               ),
                               ListTile(
-                                  leading: CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                      widget.favsList[index]["Profile_Photo"],
+                                  leading: InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              content: CircleAvatar(
+                                                radius: 150,
+                                                backgroundImage: NetworkImage(
+                                                  widget.favsList[index]
+                                                      ["Profile_Photo"],
+                                                ),
+                                              ),
+                                            );
+                                          });
+                                    },
+                                    child: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                        widget.favsList[index]["Profile_Photo"],
+                                      ),
+                                      backgroundColor: Colors.blue,
                                     ),
-                                    backgroundColor: Colors.blue,
                                   ),
                                   title: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +118,20 @@ class _List_of_tripsState extends State<Favs_page> {
                                     ],
                                   ),
                                   trailing: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Get.to(
+                                          () => Message_To_User(
+                                              name: widget.favsList[index]
+                                                  ["name"],
+                                              surname: widget.favsList[index]
+                                                  ["surname"],
+                                              uid: widget.favsList[index]
+                                                  ["uid"],
+                                              photo: widget.favsList[index]
+                                                  ["Profile_Photo"]),
+                                          transition: Transition.cupertino,
+                                          duration: Duration(seconds: 1));
+                                    },
                                     icon: const Icon(
                                       FontAwesomeIcons.message,
                                       color: Colors.blue,
@@ -143,7 +177,10 @@ class _List_of_tripsState extends State<Favs_page> {
                                     icon: const Icon(Icons.info_outline)),
                                 subtitle: const Text("Başlangıç"),
                                 iconColor: Colors.blue,
-                                leading: const Icon(Icons.gps_not_fixed),
+                                leading: Icon(
+                                  Ionicons.location_outline,
+                                  color: Color(0xFF3DA5D9),
+                                ),
                                 title: Text(
                                   widget.favsList[index]["nerden"],
                                   style: GoogleFonts.montserrat(

@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Message_To_User.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -129,39 +130,73 @@ class _List_of_tripsState extends State<List_of_trips> {
                                           height: 8,
                                         ),
                                         ListTile(
-                                          leading: CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                                mypost["Profile_Photo"]),
-                                            backgroundColor: Colors.blue,
-                                          ),
-                                          title: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                mypost["name"],
-                                                style: GoogleFonts.montserrat(
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                            leading: InkWell(
+                                              onTap: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        content: CircleAvatar(
+                                                          radius: 150,
+                                                          backgroundImage:
+                                                              NetworkImage(mypost[
+                                                                  "Profile_Photo"]),
+                                                        ),
+                                                      );
+                                                    });
+                                              },
+                                              child: CircleAvatar(
+                                                backgroundImage: NetworkImage(
+                                                    mypost["Profile_Photo"]),
+                                                backgroundColor: Colors.blue,
                                               ),
-                                              const SizedBox(
-                                                width: 10,
+                                            ),
+                                            title: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  mypost["name"],
+                                                  style: GoogleFonts.montserrat(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  mypost["surname"],
+                                                  style: GoogleFonts.montserrat(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                            trailing: IconButton(
+                                              onPressed: () {
+                                                Get.to(
+                                                    () => Message_To_User(
+                                                        name: mypost["name"],
+                                                        surname:
+                                                            mypost["surname"],
+                                                        uid: mypost["uid"],
+                                                        photo: mypost[
+                                                            "Profile_Photo"]),
+                                                    transition:
+                                                        Transition.cupertino,
+                                                    duration:
+                                                        Duration(seconds: 1));
+                                              },
+                                              icon: const Icon(
+                                                FontAwesomeIcons.message,
+                                                color: Colors.blue,
                                               ),
-                                              Text(
-                                                mypost["surname"],
-                                                style: GoogleFonts.montserrat(
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                          trailing: const Icon(
-                                            FontAwesomeIcons.message,
-                                            color: Colors.blue,
-                                          ),
-                                        ),
+                                            )),
                                         ListTile(
                                           trailing: IconButton(
                                               onPressed: () {
