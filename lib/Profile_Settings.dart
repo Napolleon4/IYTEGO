@@ -12,6 +12,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ionicons/ionicons.dart';
 import 'dart:io';
 import 'Main_Screen.dart';
 import 'Services/Auth.dart';
@@ -61,13 +62,15 @@ class _Profile_SettingsState extends State<Profile_Settings> {
 
     if (pickedFile != null) {
       _Person_PP = await uploadToStoarge(_image);
+      Get.snackbar("Profil Fotoğrafınız Güncellendi", "Lütfen bekleyiniz...",
+          backgroundColor: Colors.white,
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.blue,
+          duration: const Duration(seconds: 3));
+      _status_service
+          .updatePhoto(_Person_PP)
+          .then((value) => print(_Person_PP));
     }
-    Get.snackbar("Profil Fotoğrafınız Güncellendi", "Lütfen bekleyiniz...",
-        backgroundColor: Colors.white,
-        snackPosition: SnackPosition.TOP,
-        colorText: Colors.blue,
-        duration: const Duration(seconds: 3));
-    _status_service.updatePhoto(_Person_PP).then((value) => print(_Person_PP));
   }
 
   @override
@@ -115,16 +118,49 @@ class _Profile_SettingsState extends State<Profile_Settings> {
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 40.0),
-                                child: InkWell(
-                                  onTap: () {
-                                    getImage();
-                                  },
-                                  child: CircleAvatar(
-                                      backgroundImage:
-                                          NetworkImage(mypost["Profile_Photo"]),
-                                      backgroundColor: Colors.blue,
-                                      radius: 75),
-                                ),
+                                child: Stack(children: [
+                                  InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              content: CircleAvatar(
+                                                radius: 150,
+                                                backgroundImage: NetworkImage(
+                                                    mypost["Profile_Photo"]),
+                                              ),
+                                            );
+                                          });
+                                    },
+                                    child: CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            mypost["Profile_Photo"]),
+                                        backgroundColor: Colors.blue,
+                                        radius: 75),
+                                  ),
+                                  Positioned(
+                                    bottom: 5,
+                                    left: 110,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white),
+                                      height: 35,
+                                      width: 35,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            getImage();
+                                          },
+                                          icon: Icon(
+                                            Icons.image,
+                                            color: Colors.black,
+                                          )),
+                                    ),
+                                  )
+                                ]),
                               ),
                               const SizedBox(
                                 height: 8,

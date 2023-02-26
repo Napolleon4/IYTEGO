@@ -7,6 +7,7 @@ import 'package:flutter_application_1/Message_To_User.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 
 import 'Services/Favs_Service.dart';
 import 'Services/Status_Service.dart';
@@ -241,8 +242,9 @@ class _List_of_tripsState extends State<List_of_trips> {
                                                   Icons.info_outline)),
                                           subtitle: const Text("Başlangıç"),
                                           iconColor: Colors.blue,
-                                          leading:
-                                              const Icon(Icons.gps_not_fixed),
+                                          leading: const Icon(
+                                            Ionicons.location_outline,
+                                          ),
                                           title: Text(
                                             mypost["nerden"],
                                             style: GoogleFonts.montserrat(

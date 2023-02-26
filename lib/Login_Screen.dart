@@ -156,8 +156,14 @@ class _Login_ScreeState extends State<Login_Scree> {
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  Future(() async {
-                    await _authservice.signIn(_email.text.toString().trim(),
+                  Future(() {
+                    Get.snackbar("Giriş yapılıyor", "Lütfen bekleyiniz...",
+                        backgroundColor: Colors.white,
+                        snackPosition: SnackPosition.TOP,
+                        colorText: Colors.blue,
+                        duration: Duration(seconds: 2));
+
+                    _authservice.signIn(_email.text.toString().trim(),
                         _password.text.toString().trim());
                   });
                 }

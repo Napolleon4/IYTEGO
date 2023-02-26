@@ -12,6 +12,7 @@ import 'package:flutter_application_1/Messages_Page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ionicons/ionicons.dart';
 
 import 'Add_trip.dart';
 import 'Favs_page.dart';
@@ -99,20 +100,11 @@ class _Main_ScreenState extends State<Main_Screen> {
                 color: Colors.blue,
               ))
         ],
-        title: Padding(
-          padding: const EdgeInsets.only(
-            right: 50.0,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'images/_Logo.jpg',
-                fit: BoxFit.contain,
-                height: 85,
-              ),
-            ],
-          ),
+        titleSpacing: 100,
+        title: Image.asset(
+          'images/_Logo.jpg',
+          fit: BoxFit.contain,
+          height: 85,
         ),
         leading: Padding(
           padding: const EdgeInsets.only(left: 15.0, top: 12),
@@ -298,7 +290,7 @@ class _Main_ScreenState extends State<Main_Screen> {
                               ListTile(
                                 onTap: (() {}),
                                 title: Text(
-                                  "Hakkımızda",
+                                  "Bize Ulaşın",
                                   style: GoogleFonts.montserrat(
                                       fontSize: 20,
                                       color: Colors.white,
@@ -306,18 +298,14 @@ class _Main_ScreenState extends State<Main_Screen> {
                                 ),
                                 textColor: Colors.white,
                                 iconColor: Colors.white,
-                                leading: const Icon(
-                                  Icons.people,
-                                ),
+                                leading: const Icon(Ionicons.mail),
                               ),
                               ListTile(
                                 onTap: (() {
                                   Get.to(() => const Login_Scree());
 
-                                  setState(() {
-                                    Future.delayed(const Duration(seconds: 1),
-                                        () => _auth.Out());
-                                  });
+                                  Future.delayed(const Duration(seconds: 1),
+                                      () => _auth.Out());
                                 }),
                                 title: Text(
                                   "Çıkış Yap",

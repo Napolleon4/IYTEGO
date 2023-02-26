@@ -28,6 +28,28 @@ class _Messages_PageState extends State<Messages_Page> {
               .collection('messages')
               .snapshots(),
           builder: (context, AsyncSnapshot snapshot) {
+            if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+              return Column(
+                children: [
+                  Image.asset(
+                    "images/Anon.png",
+                    height: 400,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0, left: 40),
+                    child: ListTile(
+                      titleTextStyle: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.bold, fontSize: 15),
+                      textColor: const Color(0xFF3DA5D9),
+                      title: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                        child: const Text("Henüz bir sohbetin yok "),
+                      ),
+                    ),
+                  )
+                ],
+              );
+            }
             if (snapshot.hasData) {
               return ListView.builder(
                   physics: ScrollPhysics(),
@@ -38,7 +60,70 @@ class _Messages_PageState extends State<Messages_Page> {
                       padding: const EdgeInsets.symmetric(vertical: 12.0),
                       child: ListTile(
                         trailing: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 30),
+                                      backgroundColor: Colors.white,
+                                      content: Text(
+                                        "Sohbet silinsin mi ?",
+                                        style: GoogleFonts.montserrat(
+                                            color: Colors.grey),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text("İptal")),
+                                        TextButton(
+                                            onPressed: () {
+                                              FirebaseFirestore.instance
+                                                  .collection("Users")
+                                                  .doc(currentuser
+                                                      .currentUser!.uid)
+                                                  .collection('messages')
+                                                  .doc(mypost["friend_uid"])
+                                                  .collection("chats")
+                                                  .get()
+                                                  .then((value) => value.docs
+                                                          .forEach((element) {
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection("Users")
+                                                            .doc(currentuser
+                                                                .currentUser!
+                                                                .uid)
+                                                            .collection(
+                                                                'messages')
+                                                            .doc(mypost[
+                                                                "friend_uid"])
+                                                            .collection("chats")
+                                                            .doc(element.id)
+                                                            .delete();
+                                                      }))
+                                                  .then((value) =>
+                                                      FirebaseFirestore.instance
+                                                          .collection("Users")
+                                                          .doc(currentuser
+                                                              .currentUser!.uid)
+                                                          .collection(
+                                                              'messages')
+                                                          .doc(mypost[
+                                                              "friend_uid"])
+                                                          .delete())
+                                                  .then((value) =>
+                                                      Navigator.of(context)
+                                                          .pop());
+                                            },
+                                            child: Text("Sil")),
+                                      ],
+                                    );
+                                  });
+                            },
                             icon: Icon(
                               FontAwesomeIcons.trash,
                               color: Colors.blue,
@@ -113,7 +198,7 @@ class _Messages_PageState extends State<Messages_Page> {
         elevation: 0,
         leading: IconButton(
             onPressed: () {
-              Get.to(Main_Screen(),
+              Get.to(() => Main_Screen(),
                   transition: Transition.cupertino,
                   duration: Duration(seconds: 1));
             },

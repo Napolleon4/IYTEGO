@@ -140,10 +140,38 @@ class _My_postState extends State<My_post> {
                                       trailing: IconButton(
                                         color: Colors.blue,
                                         onPressed: () {
-                                          DocumentSnapshot snapshot =
-                                              asyncSnapshot.data!.docs[index];
-                                          _statusService
-                                              .deleteStatus(snapshot.id);
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  backgroundColor: Colors.white,
+                                                  content: Text(
+                                                    "Gönderi Silinsin mi ? ",
+                                                    style: GoogleFonts
+                                                        .montserrat(),
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          DocumentSnapshot
+                                                              snapshot =
+                                                              asyncSnapshot
+                                                                  .data!
+                                                                  .docs[index];
+                                                          _statusService
+                                                              .deleteStatus(
+                                                                  snapshot.id)
+                                                              .then((value) =>
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop());
+                                                        },
+                                                        child: Text(
+                                                          "Sil",
+                                                        ))
+                                                  ],
+                                                );
+                                              });
                                         },
                                         icon: const Icon(Icons.delete),
                                       ),

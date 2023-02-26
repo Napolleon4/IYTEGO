@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Main_Screen.dart';
 import 'package:flutter_application_1/Messages_Page.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'message_textfield.dart';
 import 'single_message.dart';
@@ -63,9 +64,77 @@ class _Message_To_UserState extends State<Message_To_User> {
                         itemBuilder: (context, index) {
                           bool isMe = snapshot.data.docs[index]['senderId'] ==
                               currentuser.currentUser!.uid;
-                          return SingleMessage(
-                              message: snapshot.data.docs[index]['message'],
-                              isMe: isMe);
+
+                          DocumentSnapshot messageId =
+                              snapshot.data.docs[index];
+                          return InkWell(
+                            onLongPress: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      content: Text(
+                                        "Mesaj silinsin mi ?",
+                                        style: GoogleFonts.montserrat(
+                                            color: Colors.grey),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text(
+                                              "İptal",
+                                            )),
+                                        TextButton(
+                                            onPressed: () {
+                                              if (isMe == true) {
+                                                FirebaseFirestore.instance
+                                                    .collection("Users")
+                                                    .doc(currentuser
+                                                        .currentUser!.uid)
+                                                    .collection('messages')
+                                                    .doc(widget.uid)
+                                                    .collection('chats')
+                                                    .doc(messageId.id)
+                                                    .delete()
+                                                    .then((value) =>
+                                                        FirebaseFirestore
+                                                            .instance
+                                                            .collection("Users")
+                                                            .doc(widget.uid)
+                                                            .collection(
+                                                                'messages')
+                                                            .doc(currentuser
+                                                                .currentUser!
+                                                                .uid)
+                                                            .collection('chats')
+                                                            .doc(messageId.id)
+                                                            .delete()
+                                                            .then((value) =>
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop()));
+                                              } else {
+                                                return null;
+                                              }
+                                            },
+                                            child: (isMe == true)
+                                                ? Text(
+                                                    "Herkesten Sil",
+                                                  )
+                                                : Text(
+                                                    "Benden Sil",
+                                                  )),
+                                      ],
+                                    );
+                                  });
+                            },
+                            child: SingleMessage(
+                                message: snapshot.data.docs[index]['message'],
+                                isMe: isMe),
+                          );
                         });
                   }
                   return Center(child: CircularProgressIndicator());
