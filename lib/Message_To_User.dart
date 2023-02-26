@@ -117,7 +117,18 @@ class _Message_To_UserState extends State<Message_To_User> {
                                                                         context)
                                                                     .pop()));
                                               } else {
-                                                return null;
+                                                FirebaseFirestore.instance
+                                                    .collection("Users")
+                                                    .doc(currentuser
+                                                        .currentUser!.uid)
+                                                    .collection('messages')
+                                                    .doc(widget.uid)
+                                                    .collection('chats')
+                                                    .doc(messageId.id)
+                                                    .delete()
+                                                    .then((value) =>
+                                                        Navigator.of(context)
+                                                            .pop());
                                               }
                                             },
                                             child: (isMe == true)
