@@ -184,8 +184,15 @@ class _My_postState extends State<My_post> {
                                                 builder:
                                                     (BuildContext context) {
                                                   return AlertDialog(
-                                                    content: Text(
-                                                        mypost["road_info"]),
+                                                    content: Row(
+                                                      children: [
+                                                        Flexible(
+                                                          flex: 2,
+                                                          child: Text(mypost[
+                                                              "road_info"]),
+                                                        ),
+                                                      ],
+                                                    ),
                                                     title: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment

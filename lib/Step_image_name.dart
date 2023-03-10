@@ -168,21 +168,18 @@ class _Step_image_nameState extends State<Step_image_name> {
                       if (_formKey.currentState!.validate()) {
                         if (activeStep == 2) {
                           Get.snackbar(
-                              "Heasbınız Oluşturuldu", "Lütfen bekleyiniz...",
+                              "Heasbınız Oluşturuluyor", "Lütfen bekleyiniz...",
                               backgroundColor: Colors.white,
                               snackPosition: SnackPosition.TOP,
                               colorText: Colors.blue);
-                          _auth
-                              .signUp(widget.email, widget.password)
-                              .then((value) => _auth.sendEmailVerif())
-                              .then((value) => _userservice
-                                  .addUser(
-                                      currentuser.currentUser!.uid,
-                                      _name.text.toString().trim(),
-                                      _surname.text.toString().trim(),
-                                      widget.email,
-                                      _Person_PP)
-                                  .then((value) => Get.to(() => Last_step())));
+                          _auth.signUp(
+                              widget.email,
+                              widget.password,
+                              currentuser.currentUser!.uid,
+                              _name.text.toString().trim(),
+                              _surname.text.toString().trim(),
+                              widget.email,
+                              _Person_PP);
                         }
                       }
                     });

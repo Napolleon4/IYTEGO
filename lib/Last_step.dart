@@ -15,15 +15,13 @@ class Last_step extends StatefulWidget {
 }
 
 class _Last_stepState extends State<Last_step> {
-  String email = "";
-  String password = "";
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key: _globalKey,
         body: OverBoard(
-          skipText: "Önceki Adım",
+          skipText: "Atla",
           nextText: "Sonraki",
           finishText: "Başlayalım",
           buttonColor: const Color(0xFF3DA5D9),
@@ -33,19 +31,7 @@ class _Last_stepState extends State<Last_step> {
           activeBulletColor: Colors.lightBlue,
           inactiveBulletColor: const Color(0xFF3DA5D9),
           finishCallback: () {
-            setState(() {
-              Get.to(() => const Login_Scree());
-            });
-          },
-          skipCallback: () {
-            Get.to(
-              () => Step_image_name(
-                password: password,
-                email: email,
-              ),
-              transition: Transition.cupertino,
-              duration: const Duration(seconds: 1),
-            );
+            Get.to(() => const Login_Scree());
           },
         ));
   }

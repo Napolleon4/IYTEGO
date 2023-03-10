@@ -144,9 +144,16 @@ class _List_of_tripsState extends State<Favs_page> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              content: Text(
-                                                  widget.favsList[index]
-                                                      ["road_info"]),
+                                              content: Row(
+                                                children: [
+                                                  Flexible(
+                                                    flex: 2,
+                                                    child: Text(
+                                                        widget.favsList[index]
+                                                            ["road_info"]),
+                                                  ),
+                                                ],
+                                              ),
                                               title: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,

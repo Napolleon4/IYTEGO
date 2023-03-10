@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 
 import '../Last_step.dart';
 import '../Main_Screen.dart';
+import 'Users_services.dart';
 
 class Auth {
   final _firebaseauth = FirebaseAuth.instance;
   User? user = FirebaseAuth.instance.currentUser;
+  final Userservice _userservice = Userservice();
   Future signIn(String email, String password) async {
     try {
       await _firebaseauth.signInWithEmailAndPassword(
@@ -56,10 +58,15 @@ class Auth {
     return await FirebaseAuth.instance.signOut();
   }
 
-  Future signUp(String email, String password) async {
+  Future signUp(String email, String password, String uid, String name,
+      String surname, String emailagain, String phoTo_Url) async {
     try {
-      await _firebaseauth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      await _firebaseauth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => sendEmailVerif())
+          .then((value) => _userservice
+              .addUser(uid, name, surname, emailagain, phoTo_Url)
+              .then((value) => Get.to(() => Last_step())));
     } on FirebaseAuthException catch (e) {
       String? title = e.code.replaceAll(RegExp('-'), ' ').capitalize;
       String message = '';

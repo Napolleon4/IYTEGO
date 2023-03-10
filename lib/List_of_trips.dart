@@ -206,8 +206,15 @@ class _List_of_tripsState extends State<List_of_trips> {
                                                     builder:
                                                         (BuildContext context) {
                                                       return AlertDialog(
-                                                        content: Text(mypost[
-                                                            "road_info"]),
+                                                        content: Row(
+                                                          children: [
+                                                            Flexible(
+                                                              flex: 2,
+                                                              child: Text(mypost[
+                                                                  "road_info"]),
+                                                            ),
+                                                          ],
+                                                        ),
                                                         title: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment

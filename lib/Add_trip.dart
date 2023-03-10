@@ -264,7 +264,10 @@ class _Add_tripState extends State<Add_trip> {
                                               });
                                         },
                                         icon: const Icon(Icons.info_outline),
-                                        label: const Text("Güzergah")),
+                                        label: Text(
+                                          "Güzergah",
+                                          style: GoogleFonts.montserrat(),
+                                        )),
                                     TextButton.icon(
                                         onPressed: () async {
                                           _selectedDate = await showDatePicker(
@@ -275,8 +278,6 @@ class _Add_tripState extends State<Add_trip> {
                                             firstDate: DateTime(2023),
                                             lastDate: DateTime(2026),
                                           );
-                                          print(
-                                              " Date Day: ${Calculator.datetimetoString(_selectedDate)} ");
                                         },
                                         icon: const Icon(Icons.date_range),
                                         label: Text("Tarih",
