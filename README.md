@@ -1,6 +1,6 @@
 # flutter_application_1
 
-A new Flutter project.
+A new Flutter project about Car sharing application that IZTECH students can register and use with their e-mails.
 
 ## Getting Started
 
